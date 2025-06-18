@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
+    "build:ui": "rm -rf dist && cd ~/Desktop/Fullstack/part2-phoneBook-frontend && npm run build && cp -r dist ~/Desktop/Fullstack-part3-phoneBook",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "author": "Kalle Keinonen",
