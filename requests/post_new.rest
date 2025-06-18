@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://fullstack-part3-phonebook-ltt9.onrender.com/api/persons
 Content-type: application/json
 
 {
-    "name": "Ritva",
+    "name": "Katja",
     "number": "045202531"
 }
