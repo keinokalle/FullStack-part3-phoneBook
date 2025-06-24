@@ -5,8 +5,6 @@ const Person = require('./models/person')
 
 const app = express()
 
-let persons = []
-
 morgan.token('body', (req) => {
   return req.method === 'POST' ? JSON.stringify(req.body) : ''
 })
@@ -20,21 +18,21 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-  console.log("\nihan perussettii\n");
-  
+  console.log('\nihan perussettii\n')
+
   Person.find({}).then((persons) => {
     response.json(persons)
   })
 })
 
 app.get('/info', (request, response) => {
-  const requestTime = new Date();
+  const requestTime = new Date()
   Person.countDocuments({}).then(count => {
     response.send(
       `<p>Phonebook has info for ${count} people</p>
       <p>${requestTime.toString()}</p>`
-    );
-  });
+    )
+  })
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -51,11 +49,11 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const { name, number } = request.body
-  console.log("\nmiks tää ei ilmesty\n");
-  
-  console.log(name);
-  console.log(number);
-  
+  console.log('\nmiks tää ei ilmesty\n')
+
+  console.log(name)
+  console.log(number)
+
   Person.findById(request.params.id)
     .then((person) => {
       if(!person) {
@@ -63,8 +61,8 @@ app.put('/api/persons/:id', (request, response, next) => {
       }
 
       person.name = name
-      person.number = number 
-      
+      person.number = number
+
       return person.save().then((updatedPerson) => {
         response.json(updatedPerson)
       })
@@ -74,26 +72,26 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result =>{
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response, next) => {
-    const body = request.body
-    console.log(body);
+  const body = request.body
+  console.log(body)
 
-    const person = new Person({
-        name: body.name,
-        number: body.number || "no number",
+  const person = new Person({
+    name: body.name,
+    number: body.number || 'no number',
+  })
+
+  person.
+    save().then((savedPerson) => {
+      response.json(savedPerson)
     })
-
-    person.
-      save().then((savedPerson) => {
-        response.json(savedPerson)
-      })
-      .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {

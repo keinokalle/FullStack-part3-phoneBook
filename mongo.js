@@ -23,22 +23,22 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 if(newName!==undefined && newNumber!==undefined) {
-    const person = new Person({
+  const person = new Person({
     name: newName,
     number: newNumber,
-    })
+  })
 
-    person.save().then(result => {
+  person.save().then(() => {
     console.log('note saved!')
     mongoose.connection.close()
-    })
+  })
 
 } else {
-    Person.find({}).then(result => {
+  Person.find({}).then(result => {
     result.forEach(p => {
-        console.log(p)
+      console.log(p)
     })
     mongoose.connection.close()
-    })
+  })
 }
 
